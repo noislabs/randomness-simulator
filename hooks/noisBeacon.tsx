@@ -16,16 +16,21 @@ export interface VerifiedBeacon {
   readonly diff: number;
 }
 
-export async function queryOracleWith(client: QueryClient & WasmExtension, requestMsg: any) {
+export async function queryOracleWith(
+  client: QueryClient & WasmExtension,
+  requestMsg: any
+) {
   console.log("Sending query:", JSON.stringify(requestMsg));
   return client.wasm.queryContractSmart(noisOracleAddress!, requestMsg);
 }
 
 export async function queryBeacon(
   client: QueryClient & WasmExtension,
-  round: number,
+  round: number
 ): Promise<VerifiedBeacon | null> {
-  const response: { beacon: any } = await queryOracleWith(client, { beacon: { round } });
+  const response: { beacon: any } = await queryOracleWith(client, {
+    beacon: { round },
+  });
 
   if (response.beacon) {
     const { round, randomness, published, verified } = response.beacon;
@@ -49,32 +54,31 @@ export async function queryBeacon(
 export async function queryBeacons(
   client: QueryClient & WasmExtension,
   startAfter: number | null,
-  itemsPerPage: number,
+  itemsPerPage: number
 ): Promise<VerifiedBeacon[]> {
   const response: { beacons: Array<any> } = await queryOracleWith(client, {
     beacons_desc: { start_after: startAfter, limit: itemsPerPage },
   });
 
-   return response.beacons.map((beacon: any): VerifiedBeacon => {
-     const { round, randomness, published, verified } = beacon;
-     const publishedDate = approxDateFromTimestamp(published);
-     const verifiedDate = approxDateFromTimestamp(verified);
-     const diff = (verifiedDate.getTime() - publishedDate.getTime()) / 1000;
-     const verifiedBeacon: VerifiedBeacon = {
-       round: round,
-       randomness: randomness,
-       published: publishedDate,
-       verified: verifiedDate,
-       diff: diff,
-     };
-     return verifiedBeacon;
-   });
+  return response.beacons.map((beacon: any): VerifiedBeacon => {
+    const { round, randomness, published, verified } = beacon;
+    const publishedDate = approxDateFromTimestamp(published);
+    const verifiedDate = approxDateFromTimestamp(verified);
+    const diff = (verifiedDate.getTime() - publishedDate.getTime()) / 1000;
+    const verifiedBeacon: VerifiedBeacon = {
+      round: round,
+      randomness: randomness,
+      published: publishedDate,
+      verified: verifiedDate,
+      diff: diff,
+    };
+    return verifiedBeacon;
+  });
 }
 
 export const queryBeaconHandle = async (round: number) => {
-
   if (!round) {
-    throw new Error('Undefined Round')
+    throw new Error("Undefined Round");
   }
 
   const httpBatch = new HttpBatchClient(rpcEndpoint!);
@@ -86,11 +90,9 @@ export const queryBeaconHandle = async (round: number) => {
   const beacon = await queryBeacon(queryClient, round);
 
   return beacon;
-
-}
+};
 
 export async function queryBeaconsHandle() {
-
   console.log("QueryBeacons");
 
   const httpBatch = new HttpBatchClient(rpcEndpoint!);

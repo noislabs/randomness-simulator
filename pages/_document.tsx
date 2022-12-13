@@ -1,9 +1,9 @@
+import "../styles/globals.css";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import daisyuiThemes from "../styles/daisyui-themes.json";
 const themes = Object.keys(daisyuiThemes) || [""];
 export const defaultTheme = themes[0];
-
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
@@ -20,7 +20,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto+Mono:wght@600&display=swap"
             rel="stylesheet"
           />
-          <link rel="stylesheet" href="styles.css" />
         </Head>
         <body>
           <Main />

@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <DashboardContext>
         <Layout>
-        <Toaster
+          <Toaster
             position="bottom-right"
             toastOptions={{
               style: {

@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
-import {
-  TextField,
-} from "@mui/material";
+import { TextField } from "@mui/material";
 
 export const NoisTextField = styled(TextField)({
-
   "&:disabled": {
     background: "#FF0000",
   },
@@ -26,8 +23,7 @@ export const NoisTextField = styled(TextField)({
       borderWidth: "1px",
       borderRadius: "8px",
       //background: 'linear-gradient(to right bottom, #10101330, #10101330)'
-      backgroundColor: '#10101330'
-
+      backgroundColor: "#10101330",
     },
     "&:hover fieldset": {
       borderColor: "#dd6e7880",

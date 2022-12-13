@@ -4,14 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { queryBeaconsHandle, VerifiedBeacon } from "../hooks/noisBeacon";
 import { useDashboardContext } from "../contexts/dashboard";
 import { RandomnessGrid } from "../components/randomnessGrid";
-//import { ToolBoxHome } from "../components/ToolBoxHome";
 import Loader from "../components/Loader";
 
 const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
 const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
 
-const Home: NextPage = ({ firstBeacons }: InferGetStaticPropsType<typeof getStaticProps>) => {
-
+const Home: NextPage = ({
+  firstBeacons,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { tab } = useDashboardContext();
 
   function makeTimer() {
@@ -19,10 +19,10 @@ const Home: NextPage = ({ firstBeacons }: InferGetStaticPropsType<typeof getStat
     return () => {
       if (start === 1) {
         start = 31;
-        return start - 1
+        return start - 1;
       } else {
         start -= 1;
-        return start - 1
+        return start - 1;
       }
     };
   }
@@ -34,10 +34,9 @@ const Home: NextPage = ({ firstBeacons }: InferGetStaticPropsType<typeof getStat
     });
 
     return <div>{time}</div>;
-  }
+  };
 
   const parseHack = (fb: any) => {
-
     const jobj = JSON.parse(fb);
 
     const xx: VerifiedBeacon[] = jobj.map((r: any) => {
@@ -48,11 +47,11 @@ const Home: NextPage = ({ firstBeacons }: InferGetStaticPropsType<typeof getStat
         randomness: r.randomness,
         published: publi,
         verified: vf,
-        diff: r.diff
-      } as VerifiedBeacon
-    })
-    return xx
-  }
+        diff: r.diff,
+      } as VerifiedBeacon;
+    });
+    return xx;
+  };
 
   const {
     isLoading,
@@ -61,39 +60,30 @@ const Home: NextPage = ({ firstBeacons }: InferGetStaticPropsType<typeof getStat
     data: myVerifiedBeacons,
     isFetching,
     isPreviousData,
-    status
-  } = useQuery(
-    ["main"], () => queryBeaconsHandle(), {
+    status,
+  } = useQuery(["main"], () => queryBeaconsHandle(), {
     initialData: () => parseHack(firstBeacons),
     staleTime: Infinity,
     refetchOnMount: false,
-    refetchInterval: 30000
-  }
-  )
+    refetchInterval: 30000,
+  });
 
-  if ((tab === "Randomness" || !tab) && (myVerifiedBeacons)) {
+  if ((tab === "Randomness" || !tab) && myVerifiedBeacons) {
     return (
       <>
         <RandomnessGrid rands={myVerifiedBeacons} timer={<RoundTimer />} />
       </>
-    )
+    );
   }
-
-  // if ((tab === "Toolbox") && (myVerifiedBeacons)) {
-  //   return (
-  //     <ToolBoxHome rands={myVerifiedBeacons} />
-  //   )
-  // }
 
   return (
     <div className="mx-auto flex justify-center items-center h-[98vh] w-[98vh]">
       <Loader />
     </div>
-  )
-}
+  );
+};
 
 export const getStaticProps: GetStaticProps = async (context) => {
-
   const firstBeaconsD: VerifiedBeacon[] = await queryBeaconsHandle();
   const firstBeacons = JSON.stringify(firstBeaconsD);
 
@@ -101,7 +91,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       firstBeacons,
     },
-  }
-}
+  };
+};
 
 export default Home;

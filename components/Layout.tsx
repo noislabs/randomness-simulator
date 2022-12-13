@@ -4,7 +4,6 @@ import Nav from "./Nav";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-
     <div className="grid grid-cols-6 w-[calc(100%)] h-screen bg-dice-pattern bg-black">
       <Head>
         <meta property="og:url" content="na" />
@@ -26,10 +25,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Nav />
       </div>
 
-      <div className="col-span-5 max-h-screen">
-        {children}
-      </div>
-
+      <div className="col-span-5 max-h-screen">{children}</div>
     </div>
   );
 }

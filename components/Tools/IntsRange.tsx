@@ -3,12 +3,11 @@ import { int_in_range_js } from "nois";
 import { useState } from "react";
 import { NoisTextField } from "../../styles/mui";
 import InputAdornment from "@mui/material/InputAdornment";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import toast from "react-hot-toast";
 
 export const IntsRange = ({ randomness }: { randomness: string }) => {
-
   const diceOutput = roll_dice_js(randomness);
 
   const [beginRange, setBegin] = useState<string>();
@@ -18,18 +17,22 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
 
   const handleGetInt = ({
     begin,
-    end
+    end,
   }: {
     begin: string | any;
     end: string | any;
   }) => {
-
-    if (isNaN(Number(begin)) || (begin == "") || (isNaN(Number(end))) || (end == "")) {
+    if (
+      isNaN(Number(begin)) ||
+      begin == "" ||
+      isNaN(Number(end)) ||
+      end == ""
+    ) {
       toast.error("Please use valid numbers in range input");
       return;
     }
 
-    if ((Number(begin) < 0) || (Number(end) < 0)) {
+    if (Number(begin) < 0 || Number(end) < 0) {
       toast.error("Negative values in range input not allowed");
       return;
     }
@@ -45,8 +48,7 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
     }
 
     setInt(int_in_range_js(randomness, Number(begin), Number(end)));
-
-  }
+  };
 
   return (
     <>
@@ -68,7 +70,7 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
                 min: "1",
               }}
               InputProps={{
-                autoComplete: 'off',
+                autoComplete: "off",
                 style: { color: "#dd6e78" },
                 endAdornment: (
                   <InputAdornment position="end">
@@ -76,9 +78,7 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
                   </InputAdornment>
                 ),
               }}
-              onChange={(event) =>
-                setBegin(event.target.value)
-              }
+              onChange={(event) => setBegin(event.target.value)}
             />
           </div>
           <div className="col-span-1">
@@ -97,7 +97,7 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
                 min: "1",
               }}
               InputProps={{
-                autoComplete: 'off',
+                autoComplete: "off",
                 style: { color: "#dd6e78" },
                 startAdornment: (
                   <InputAdornment position="start">
@@ -105,14 +105,13 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
                   </InputAdornment>
                 ),
               }}
-              onChange={(event) =>
-                setEnd(event.target.value)
-              }
+              onChange={(event) => setEnd(event.target.value)}
             />
           </div>
         </div>
         <div className="row-span-1 mx-auto">
-          <button className="nois-button"
+          <button
+            className="nois-button"
             onClick={() => handleGetInt({ begin: beginRange, end: endRange })}
           >
             Get Integer
@@ -141,5 +140,5 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
         )}
       </div>
     </>
-  )
-}
+  );
+};

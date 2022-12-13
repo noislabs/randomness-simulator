@@ -1,6 +1,13 @@
-import { createContext, useContext, ReactNode, useState, useCallback, useEffect} from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import init from "nois";
-import {InitOutput} from "nois";
+import { InitOutput } from "nois";
 
 // const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
 // const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
@@ -18,28 +25,27 @@ const AppDashboardContext = createContext<IDashboardContext>({
   noisWasm: undefined,
 });
 
-export function DashboardContext({ children }: {children: any}) {
-
+export function DashboardContext({ children }: { children: any }) {
   const [currentTab, changeCurrentTab] = useState("");
 
-  const [noisWasmProvider, setNoisWasmProvider] = useState<InitOutput | undefined>(undefined);
+  const [noisWasmProvider, setNoisWasmProvider] = useState<
+    InitOutput | undefined
+  >(undefined);
 
   const initNoisWasm = useCallback(async () => {
     const init_output = await init();
     setNoisWasmProvider(init_output);
   }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     initNoisWasm();
-  },[]);
-
+  }, []);
 
   let global = {
-    tab : currentTab,
-    switchTab : (val: string) => changeCurrentTab(val),
-    noisWasm: noisWasmProvider
+    tab: currentTab,
+    switchTab: (val: string) => changeCurrentTab(val),
+    noisWasm: noisWasmProvider,
   };
-  
 
   return (
     <AppDashboardContext.Provider value={global}>
