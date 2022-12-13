@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import daisyuiThemes from "../styles/daisyui-themes.json";
