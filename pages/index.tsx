@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
 const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
 
-const Home: NextPage = ({
+const Home: NextPage<{ firstBeacons: string }> = ({
   firstBeacons,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { tab } = useDashboardContext();
@@ -83,7 +83,9 @@ const Home: NextPage = ({
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps<{ firstBeacons: string }> = async (
+  context
+) => {
   const firstBeaconsD: VerifiedBeacon[] = await queryBeaconsHandle();
   const firstBeacons = JSON.stringify(firstBeaconsD);
 

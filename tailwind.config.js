@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 module.exports = {
   mode: 'jit',
   content: [
@@ -9,7 +11,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "orbitron": ['"Orbitron"', 'cursive'],
+        //"orbitron": ['"Orbitron"', 'cursive'],
+        //mono: ['var(--font-orbitron)', ...fontFamily.mono],
+        "orbitron": ['var(--font-orbitron)', 'cursive'],
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
@@ -29,6 +33,33 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: [require("./styles/daisyui-themes.json")],
+    //themes: [require("./styles/daisyui-themes.json")],
+    themes: [
+      {
+        noisDark: {
+          primary: "#101013",
+          secondary: "#c7c7c7",
+          accent: "#dd6e78",
+          neutral: "#FFABCF",
+
+          "success": "#65f09a",
+          "warning": "#f0df95",
+          "error": "#f06c65"
+        },
+      }
+    ],
   },
 }
+
+// {
+//   "noisDark": {
+//     "primary": "#101013",
+//     "secondary": "#c7c7c7",
+//     "accent": "#dd6e78",
+//     "neutral": "#FFABCF",
+
+//     "success": "#65f09a",
+//     "warning": "#f0df95",
+//     "error": "#f06c65"
+//   }
+// }
