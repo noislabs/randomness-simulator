@@ -9,6 +9,19 @@ import Loader from "../components/Loader";
 const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
 const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
 
+export const getStaticProps: GetStaticProps<{ firstBeacons: string }> = async (
+  context
+) => {
+  const firstBeaconsD: VerifiedBeacon[] = await queryBeaconsHandle();
+  const firstBeacons = JSON.stringify(firstBeaconsD);
+
+  return {
+    props: {
+      firstBeacons,
+    },
+  };
+};
+
 const Home: NextPage<{ firstBeacons: string }> = ({
   firstBeacons,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -81,19 +94,6 @@ const Home: NextPage<{ firstBeacons: string }> = ({
       <Loader />
     </div>
   );
-};
-
-export const getStaticProps: GetStaticProps<{ firstBeacons: string }> = async (
-  context
-) => {
-  const firstBeaconsD: VerifiedBeacon[] = await queryBeaconsHandle();
-  const firstBeacons = JSON.stringify(firstBeaconsD);
-
-  return {
-    props: {
-      firstBeacons,
-    },
-  };
 };
 
 export default Home;
