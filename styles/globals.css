@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    /* ::-webkit-scrollbar-thumb{
+    @apply bg-black/10
+    } */
+    ::-webkit-scrollbar{
+    @apply w-3 bg-black/10
+    }
+    ::-webkit-scrollbar-thumb{
+    @apply bg-accent/20
+    }
+}
+
+@layer components {
+    .nois-button {
+      @apply py-2 px-6 border border-white/30 rounded-md text-white/80 hover:text-white hover:border-accent hover:bg-gradient-to-br from-accent/10 hover:drop-shadow-red
+    }
+    .nois-button-selected {
+      @apply py-2 px-6 rounded-md text-white border border-accent bg-gradient-to-br from-accent/10 drop-shadow-red
+    }
+    .nois-button-disabled {
+      @apply py-2 px-6 rounded-md border border-white/10 text-white/30 cursor-not-allowed
+    }
+}

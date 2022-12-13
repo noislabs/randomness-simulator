@@ -1,0 +1,12 @@
+node_modules
+postcss.config.js
+tailwind.config.js
+next.config.js
+**/.github/**
+**/.next/**
+**/_next/**
+**/dist/**
+**/util/**
+*.json
+*.css
+*.md
