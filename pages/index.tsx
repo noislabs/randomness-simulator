@@ -1,10 +1,11 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryBeaconsHandle, VerifiedBeacon } from "../hooks/noisBeacon";
 import { useDashboardContext } from "../contexts/dashboard";
 import { RandomnessGrid } from "../components/randomnessGrid";
 import Loader from "../components/Loader";
+import { Disclaimer } from "../components/Modals/Disclaimer";
 
 const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
 const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
@@ -25,7 +26,7 @@ export const getStaticProps: GetStaticProps<{ firstBeacons: string }> = async (
 const Home: NextPage<{ firstBeacons: string }> = ({
   firstBeacons,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { tab } = useDashboardContext();
+  const { tab, firstLoad } = useDashboardContext();
 
   function makeTimer() {
     let start = 31;
@@ -84,6 +85,7 @@ const Home: NextPage<{ firstBeacons: string }> = ({
   if ((tab === "Randomness" || !tab) && myVerifiedBeacons) {
     return (
       <>
+        {firstLoad && <Disclaimer />}
         <RandomnessGrid rands={myVerifiedBeacons} timer={<RoundTimer />} />
       </>
     );

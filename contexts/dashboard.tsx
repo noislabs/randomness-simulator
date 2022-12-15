@@ -15,17 +15,22 @@ import { InitOutput } from "nois";
 export interface IDashboardContext {
   tab: string;
   switchTab: (val: string) => void;
+  firstLoad: boolean;
+  switchFirstLoad: (val: boolean) => void;
   noisWasm: InitOutput | undefined;
 }
 
 const AppDashboardContext = createContext<IDashboardContext>({
   tab: "",
   switchTab: (val: string) => {},
+  firstLoad: false,
+  switchFirstLoad: (val: boolean) => {},
   noisWasm: undefined,
 });
 
 export function DashboardContext({ children }: { children: any }) {
   const [currentTab, changeCurrentTab] = useState("");
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const [noisWasmProvider, setNoisWasmProvider] = useState<
     InitOutput | undefined
@@ -43,6 +48,8 @@ export function DashboardContext({ children }: { children: any }) {
   let global = {
     tab: currentTab,
     switchTab: (val: string) => changeCurrentTab(val),
+    firstLoad: isFirstLoad,
+    switchFirstLoad: (val: boolean) => setIsFirstLoad(val),
     noisWasm: noisWasmProvider,
   };
 
