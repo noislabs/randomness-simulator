@@ -1,8 +1,4 @@
 /** @type {import('next').NextConfig} */
-let config = {
-  reactStrictMode: true,
-  //productionBrowserSourceMaps: true,
-};
 
 const securityHeaders = [
   {
@@ -19,14 +15,29 @@ const securityHeaders = [
   },
 ]
 
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
   async headers() {
     return [
       {
+        // Apply these headers to all routes in your application.
         source: '/:path*',
         headers: securityHeaders,
       },
     ]
   },
+
+  webpack: (config, { isServer, dev }) => {
+
+    config.output.webassemblyModuleFilename =
+    isServer && !dev
+      ? '../static/media/[modulehash].wasm'
+      : 'static/media/[modulehash].wasm'
+
+    config.experiments = { ...config.experiments, asyncWebAssembly: true }
+
+    return config
+  },
 }
+
+module.exports = nextConfig

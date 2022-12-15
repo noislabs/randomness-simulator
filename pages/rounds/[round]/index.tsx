@@ -6,6 +6,7 @@ import Loader from "../../../components/Loader";
 import { CoinFlip } from "../../../components/Tools/CoinFlip";
 import { Dice } from "../../../components/Tools/Dice";
 import { IntsRange } from "../../../components/Tools/IntsRange";
+import { Shuffle } from "../../../components/Tools/Shuffle";
 
 export enum Tool {
   CoinFlip,
@@ -126,9 +127,16 @@ export default function GetRound() {
               >
                 Int Range
               </button>
+              <button
+                className={`${
+                  tool == Tool.Shuffle ? "nois-button-selected" : "nois-button"
+                }`}
+                onClick={() => setTool(Tool.Shuffle)}
+              >
+                Shuffle
+              </button>
               <button className={`nois-button-disabled`}>Decimal</button>
               <button className={`nois-button-disabled`}>Sub-rand</button>
-              <button className={`nois-button-disabled`}>Shuffle</button>
             </div>
             <div className="row-span-5 mx-auto">
               {tool === Tool.CoinFlip && verifiedRound && (
@@ -139,6 +147,9 @@ export default function GetRound() {
               )}
               {tool === Tool.IntRange && verifiedRound && (
                 <IntsRange randomness={verifiedRound.randomness} />
+              )}
+              {tool === Tool.Shuffle && verifiedRound && (
+                <Shuffle randomness={verifiedRound.randomness} />
               )}
             </div>
           </div>

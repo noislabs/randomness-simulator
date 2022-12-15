@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { coinflip_js } from "nois";
+import { coinflip } from "nois";
 import { useEffect, useState } from "react";
-import { useDashboardContext } from "../../contexts/dashboard";
+//import { useDashboardContext } from "../../contexts/dashboard";
 import heads_gif from "../../public/heads.gif";
 import tails_gif from "../../public/tails.gif";
 
@@ -16,7 +16,7 @@ export const CoinFlip = ({ randomness }: { randomness: string }) => {
     }, 1770);
   }, []);
 
-  const coinflipOutput = coinflip_js(randomness);
+  const coinflipOutput = coinflip(randomness);
 
   return (
     <>

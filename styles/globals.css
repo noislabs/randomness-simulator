@@ -24,4 +24,7 @@
     .nois-button-disabled {
       @apply py-2 px-6 rounded-md border border-white/10 text-white/30 cursor-not-allowed
     }
+    .nois-button-small {
+      @apply py-1 px-4 border border-white/30 rounded-md text-white/70 hover:text-white/80 hover:border-accent/80 hover:bg-gradient-to-br from-accent/10 hover:drop-shadow-redsoft
+    }
 }

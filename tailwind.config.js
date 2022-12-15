@@ -1,7 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-const { fontFamily } = require('tailwindcss/defaultTheme')
-
 module.exports = {
   mode: 'jit',
   content: [
@@ -33,7 +31,6 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    //themes: [require("./styles/daisyui-themes.json")],
     themes: [
       {
         noisDark: {
@@ -50,16 +47,3 @@ module.exports = {
     ],
   },
 }
-
-// {
-//   "noisDark": {
-//     "primary": "#101013",
-//     "secondary": "#c7c7c7",
-//     "accent": "#dd6e78",
-//     "neutral": "#FFABCF",
-
-//     "success": "#65f09a",
-//     "warning": "#f0df95",
-//     "error": "#f06c65"
-//   }
-// }

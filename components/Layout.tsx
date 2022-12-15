@@ -6,7 +6,10 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="grid grid-cols-6 w-[calc(100%)] h-screen bg-dice-pattern bg-black">
       <Head>
-        <meta property="og:url" content="na" />
+        <meta
+          property="og:url"
+          content="https://nois-randomness-simulator.vercel.app/"
+        />
         <meta property="og:type" content="website" />
         <meta property="fb:app_id" content="none" />
         <meta

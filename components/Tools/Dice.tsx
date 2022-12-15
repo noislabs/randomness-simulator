@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { roll_dice_js } from "nois";
+import { roll_dice } from "nois";
 import { useEffect, useState } from "react";
-import { useDashboardContext } from "../../contexts/dashboard";
+//import { useDashboardContext } from "../../contexts/dashboard";
 import dice_1 from "../../public/dice_one.gif";
 import dice_2 from "../../public/dice_two.gif";
 import dice_3 from "../../public/dice_three.gif";
@@ -91,7 +91,7 @@ export const Dice = ({ randomness }: { randomness: string }) => {
     }
   };
 
-  const diceOutput = roll_dice_js(randomness);
+  const diceOutput = roll_dice(randomness);
 
   return (
     <>

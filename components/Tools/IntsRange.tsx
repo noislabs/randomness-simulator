@@ -1,5 +1,4 @@
-import { roll_dice_js } from "nois";
-import { int_in_range_js } from "nois";
+import { int_in_range } from "nois";
 import { useState } from "react";
 import { NoisTextField } from "../../styles/mui";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -8,8 +7,6 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import toast from "react-hot-toast";
 
 export const IntsRange = ({ randomness }: { randomness: string }) => {
-  const diceOutput = roll_dice_js(randomness);
-
   const [beginRange, setBegin] = useState<string>();
   const [endRange, setEnd] = useState<string>();
 
@@ -47,7 +44,7 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
       return;
     }
 
-    setInt(int_in_range_js(randomness, Number(begin), Number(end)));
+    setInt(int_in_range(randomness, Number(begin), Number(end)));
   };
 
   return (
