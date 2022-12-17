@@ -7,6 +7,7 @@ import { CoinFlip } from "../../../components/Tools/CoinFlip";
 import { Dice } from "../../../components/Tools/Dice";
 import { IntsRange } from "../../../components/Tools/IntsRange";
 import { Shuffle } from "../../../components/Tools/Shuffle";
+import { Decimal } from "../../../components/Tools/Decimal";
 
 export enum Tool {
   CoinFlip,
@@ -135,7 +136,14 @@ export default function GetRound() {
               >
                 Shuffle
               </button>
-              <button className={`nois-button-disabled`}>Decimal</button>
+              <button
+                className={`${
+                  tool == Tool.Decimal ? "nois-button-selected" : "nois-button"
+                }`}
+                onClick={() => setTool(Tool.Decimal)}
+              >
+                Decimal
+              </button>
               <button className={`nois-button-disabled`}>Sub-rand</button>
             </div>
             <div className="row-span-5 mx-auto">
@@ -150,6 +158,9 @@ export default function GetRound() {
               )}
               {tool === Tool.Shuffle && verifiedRound && (
                 <Shuffle randomness={verifiedRound.randomness} />
+              )}
+              {tool === Tool.Decimal && verifiedRound && (
+                <Decimal randomness={verifiedRound.randomness} />
               )}
             </div>
           </div>
