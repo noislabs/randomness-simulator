@@ -62,9 +62,9 @@ export default function GetRound() {
               <div className="col-span-1 justify-self-start drop-shadow-black font-semibold">
                 {"Round #" + verifiedRound?.round ?? "No Round"}
               </div>
-              <div className="col-span-1 justify-self-end text-white/30">
-                Toolbox
-              </div>
+              {/* <div className="col-span-1 justify-self-end text-white/30">
+                Toolbox // <> buttons
+              </div> */}
             </div>
             <div className="row-span-2 grid grid-cols-4 justify-between pl-4">
               <div className="col-span-1 grid grid-rows-3">
@@ -103,7 +103,10 @@ export default function GetRound() {
           </div>
 
           <div className="row-span-4 grid grid-rows-6 gap-4 p-4 w-11/12 mx-auto ">
-            <div className="row-span-1 grid grid-cols-6 gap-4 justify-evenly">
+            <div className="row-span-1 grid grid-cols-6 gap-4 justify-start">
+              <div className="flex justify-self-start self-center w-11/12 font-orbitron text-accent/70 border-r border-accent/70">
+                Tool Select
+              </div>
               <button
                 className={`${
                   tool == Tool.CoinFlip ? "nois-button-selected" : "nois-button"
@@ -144,7 +147,7 @@ export default function GetRound() {
               >
                 Decimal
               </button>
-              <button className={`nois-button-disabled`}>Sub-rand</button>
+              {/* <button className={`nois-button-disabled`}>Sub-rand</button> */}
             </div>
             <div className="row-span-5 mx-auto">
               {tool === Tool.CoinFlip && verifiedRound && (

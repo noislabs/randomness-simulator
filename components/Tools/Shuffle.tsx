@@ -22,7 +22,7 @@ export const Shuffle = ({ randomness }: { randomness: string }) => {
     );
   };
 
-  const handleShuffleItems = (items: string[]) => {
+  const handleShuffleItems = () => {
     if (shuffleItems.length === 0) {
       toast.error("Must have items to shuffle | Try adding some");
       return;
@@ -34,6 +34,15 @@ export const Shuffle = ({ randomness }: { randomness: string }) => {
   const clear = () => {
     setShuffleItems([]);
     setShuffledItems([]);
+  };
+
+  const copyItems = () => {
+    if (shuffledItems.length === 0) {
+      toast.error("No items to copy");
+      return;
+    }
+    toast.success("Copied to Clipboard");
+    navigator.clipboard.writeText(shuffledItems.join("\n"));
   };
 
   return (
@@ -54,7 +63,7 @@ export const Shuffle = ({ randomness }: { randomness: string }) => {
             </div>
             <div className="basis-1/3">
               <button
-                onClick={() => handleShuffleItems(shuffleItems)}
+                onClick={() => handleShuffleItems()}
                 className="nois-button w-full py-1 font-orbitron text-accent/90 border border-accent/70 bg-accent/10"
               >
                 Shuffle!
@@ -75,10 +84,24 @@ export const Shuffle = ({ randomness }: { randomness: string }) => {
         </div>
 
         <div className="row-span-1 grid grid-cols-12 w-full gap-x-2 border-accent">
-          <div className="col-span-3 h-1/4 w-1/2 justify-self-end">
-            <span className="inline-block text-right pr-2 w-full align-middle font-orbitron text-accent/80">
+          <div className="col-span-3 grid justify-between w-1/2 justify-self-end">
+            <div className="text-right pr-2 w-full font-orbitron text-accent/80">
               Output :
-            </span>
+            </div>
+            <div className="w-full self-end">
+              <button
+                className={`text-xs
+                ${
+                  shuffledItems.length > 0
+                    ? "nois-button-small duration-150 ease-in-out active:scale-90 active:bg-accent/10"
+                    : "nois-button-small-disabled"
+                }
+              `}
+                onClick={() => copyItems()}
+              >
+                Copy CSV
+              </button>
+            </div>
           </div>
           <div className="col-span-9 flex flex-wrap overflow-auto border border-accent/50 bg-black/10">
             {shuffledItems.length > 0 &&

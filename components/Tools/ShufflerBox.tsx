@@ -7,11 +7,27 @@ import Avatar from "@mui/material/Avatar";
 import { common } from "@mui/material/colors";
 
 export const AddItemTextBox = ({ add }: { add: any }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
 
   const addClear = (txt: string) => {
     add(txt);
-    setText("");
+
+    setTimeout(() => {
+      setText("");
+    }, 99);
+  };
+
+  const parsePasted = (txt: string) => {
+    txt
+      .split("\n")
+      ?.map((item) => {
+        return item.replace("\t", "");
+      })
+      .forEach((tx) => add(tx));
+
+    setTimeout(() => {
+      setText("");
+    }, 99);
   };
 
   return (
@@ -41,6 +57,9 @@ export const AddItemTextBox = ({ add }: { add: any }) => {
       }}
       onChange={(event) => setText(event.target.value)}
       onKeyDown={(e) => (e.key === "Enter" ? addClear(text) : null)}
+      onPasteCapture={(event) =>
+        parsePasted(event.clipboardData.getData("text"))
+      }
       value={text}
     />
   );

@@ -1,7 +1,6 @@
 import { random_decimal } from "nois";
 
 export const Decimal = ({ randomness }: { randomness: string }) => {
-
   const decimalOutput = random_decimal(randomness);
 
   return (

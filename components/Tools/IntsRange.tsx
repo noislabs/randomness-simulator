@@ -29,8 +29,13 @@ export const IntsRange = ({ randomness }: { randomness: string }) => {
       return;
     }
 
-    if (Number(begin) < 0 || Number(end) < 0) {
-      toast.error("Negative values in range input not allowed");
+    if ((Number(begin) || Number(end)) < Number.MIN_SAFE_INTEGER) {
+      toast.error("Values must be greater than -9007199254740991");
+      return;
+    }
+
+    if ((Number(begin) || Number(end)) > Number.MAX_SAFE_INTEGER) {
+      toast.error("Values must be less than 9007199254740991");
       return;
     }
 
