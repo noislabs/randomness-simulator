@@ -79,7 +79,7 @@ const Home: NextPage<{ firstBeacons: string }> = ({
     ["main", parseHack(firstBeacons)[0].round],
     () => queryBeaconsHandle(),
     {
-      initialData: () => parseHack(firstBeacons),
+      initialData: parseHack(firstBeacons),
       staleTime: 30000,
       refetchOnMount: true,
       refetchInterval: 30000,
