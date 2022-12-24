@@ -78,7 +78,7 @@ const Home: NextPage<{ firstBeacons: string }> = ({
   } = useQuery(["main"], () => queryBeaconsHandle(), {
     initialData: () => parseHack(firstBeacons),
     staleTime: 5000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchInterval: 30000,
   });
 
