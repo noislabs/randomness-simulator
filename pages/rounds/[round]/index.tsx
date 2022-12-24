@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryBeaconHandle } from "../../../hooks/noisBeacon";
+import { queryBeaconHandle, VerifiedBeacon } from "../../../hooks/noisBeacon";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loader from "../../../components/Loader";
@@ -8,6 +8,9 @@ import { Dice } from "../../../components/Tools/Dice";
 import { IntsRange } from "../../../components/Tools/IntsRange";
 import { Shuffle } from "../../../components/Tools/Shuffle";
 import { Decimal } from "../../../components/Tools/Decimal";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import toast from "react-hot-toast";
 
 export enum Tool {
   CoinFlip,
@@ -23,25 +26,48 @@ export default function GetRound() {
 
   const [round, setRound] = useState<number>(0);
 
+  const [verifiedRound, setVerifiedRound] = useState<VerifiedBeacon>();
+
   const router = useRouter();
 
   useEffect(() => {
     if (!router.isReady) return;
-    const id = router.query.round as string;
-    setRound(parseInt(id));
+    if (round === 0) {
+      const id = router.query.round as string;
+      setRound(parseInt(id));
+    } else {
+      return;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
-  const { data: verifiedRound, status } = useQuery(
+  const { status } = useQuery(
     ["getRound", round],
     () => queryBeaconHandle(round),
     {
-      staleTime: Infinity,
+      staleTime: 0,
       refetchOnMount: false,
       refetchOnReconnect: "always",
       enabled: !!round,
+      onSuccess: (data) => {
+        router.push({
+          pathname: "/rounds/[round]",
+          query: { round: data.round },
+        });
+        setVerifiedRound(data);
+      },
+      onError: () => {
+        setRound(round - 1);
+        toast.error("Round was not found");
+      },
+      retry: false,
     }
   );
+
+  // pathname: /rounds/[round]
+  // asPath: /rounds/2548595
+  // query: Object: 2548595
+  // query: {"round":"2548595"}
 
   return (
     <>
@@ -62,9 +88,20 @@ export default function GetRound() {
               <div className="col-span-1 justify-self-start drop-shadow-black font-semibold">
                 {"Round #" + verifiedRound?.round ?? "No Round"}
               </div>
-              {/* <div className="col-span-1 justify-self-end text-white/30">
-                Toolbox // <> buttons
-              </div> */}
+              <div className="col-span-1 justify-self-end text-white/30">
+                <ArrowBackIcon
+                  sx={{ color: "#dd6e78" }}
+                  fontSize="medium"
+                  className="hover:drop-shadow-red"
+                  onClick={() => setRound(round - 1)}
+                />
+                <ArrowForwardIcon
+                  sx={{ color: "#dd6e78" }}
+                  fontSize="medium"
+                  className="hover:drop-shadow-red"
+                  onClick={() => setRound(round + 1)}
+                />
+              </div>
             </div>
             <div className="row-span-2 grid grid-cols-4 justify-between pl-4">
               <div className="col-span-1 grid grid-rows-3">

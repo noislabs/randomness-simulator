@@ -89,6 +89,12 @@ export const queryBeaconHandle = async (round: number) => {
 
   const beacon = await queryBeacon(queryClient, round);
 
+  //const z = new Error("NONE");
+
+  if (!beacon) {
+    throw new Error("NONE");
+  }
+
   return beacon;
 };
 
