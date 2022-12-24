@@ -28,7 +28,7 @@ const Home: NextPage<{ firstBeacons: string }> = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { tab, firstLoad } = useDashboardContext();
 
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
   function makeTimer() {
     let start = 31;
@@ -69,8 +69,6 @@ const Home: NextPage<{ firstBeacons: string }> = ({
     return xx;
   };
 
-  queryClient.setQueryData(["main"], parseHack(firstBeacons));
-
   const {
     isLoading,
     isError,
@@ -81,7 +79,8 @@ const Home: NextPage<{ firstBeacons: string }> = ({
     status,
   } = useQuery(["main"], () => queryBeaconsHandle(), {
     //initialData: parseHack(firstBeacons),
-    staleTime: 30000,
+    placeholderData: parseHack(firstBeacons),
+    staleTime: 0,
     refetchOnMount: true,
     refetchInterval: 30000,
   });
