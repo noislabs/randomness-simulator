@@ -75,12 +75,16 @@ const Home: NextPage<{ firstBeacons: string }> = ({
     isFetching,
     isPreviousData,
     status,
-  } = useQuery(["main"], () => queryBeaconsHandle(), {
-    initialData: () => parseHack(firstBeacons),
-    staleTime: 5000,
-    refetchOnMount: true,
-    refetchInterval: 30000,
-  });
+  } = useQuery(
+    ["main", parseHack(firstBeacons)[0].round],
+    () => queryBeaconsHandle(),
+    {
+      initialData: () => parseHack(firstBeacons),
+      staleTime: 30000,
+      refetchOnMount: true,
+      refetchInterval: 30000,
+    }
+  );
 
   if ((tab === "Randomness" || !tab) && myVerifiedBeacons) {
     return (
