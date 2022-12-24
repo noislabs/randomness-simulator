@@ -1,6 +1,6 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useRef } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryBeaconsHandle, VerifiedBeacon } from "../hooks/noisBeacon";
 import { useDashboardContext } from "../contexts/dashboard";
 import { RandomnessGrid } from "../components/randomnessGrid";
@@ -27,6 +27,8 @@ const Home: NextPage<{ firstBeacons: string }> = ({
   firstBeacons,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { tab, firstLoad } = useDashboardContext();
+
+  const queryClient = useQueryClient();
 
   function makeTimer() {
     let start = 31;
@@ -67,6 +69,8 @@ const Home: NextPage<{ firstBeacons: string }> = ({
     return xx;
   };
 
+  queryClient.setQueryData(["main"], parseHack(firstBeacons));
+
   const {
     isLoading,
     isError,
@@ -75,16 +79,12 @@ const Home: NextPage<{ firstBeacons: string }> = ({
     isFetching,
     isPreviousData,
     status,
-  } = useQuery(
-    ["main", parseHack(firstBeacons)[0].round],
-    () => queryBeaconsHandle(),
-    {
-      initialData: parseHack(firstBeacons),
-      staleTime: 30000,
-      refetchOnMount: true,
-      refetchInterval: 30000,
-    }
-  );
+  } = useQuery(["main"], () => queryBeaconsHandle(), {
+    //initialData: parseHack(firstBeacons),
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchInterval: 30000,
+  });
 
   if ((tab === "Randomness" || !tab) && myVerifiedBeacons) {
     return (
