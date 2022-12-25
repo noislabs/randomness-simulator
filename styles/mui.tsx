@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
-import { TextField } from "@mui/material";
+import {
+  TextField,
+  Tooltip,
+  tooltipClasses,
+  TooltipProps,
+} from "@mui/material";
 
 export const NoisTextField = styled(TextField)({
   "&:disabled": {
@@ -39,3 +44,15 @@ export const NoisTextField = styled(TextField)({
     },
   },
 });
+
+export const NoisTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip leaveDelay={0} {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "#000000",
+    color: "#dd6e78",
+    border: "1px solid #dd6e78",
+    fontSize: "small",
+    borderRadius: 0,
+  },
+}));

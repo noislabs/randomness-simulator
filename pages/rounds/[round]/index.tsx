@@ -11,6 +11,7 @@ import { Decimal } from "../../../components/Tools/Decimal";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import toast from "react-hot-toast";
+import { NoisTooltip } from "../../../styles/mui";
 
 export enum Tool {
   CoinFlip,
@@ -92,13 +93,13 @@ export default function GetRound() {
                 <ArrowBackIcon
                   sx={{ color: "#dd6e78" }}
                   fontSize="medium"
-                  className="hover:drop-shadow-red"
+                  className="hover:drop-shadow-red hover:cursor-pointer"
                   onClick={() => setRound(round - 1)}
                 />
                 <ArrowForwardIcon
                   sx={{ color: "#dd6e78" }}
                   fontSize="medium"
-                  className="hover:drop-shadow-red"
+                  className="hover:drop-shadow-red hover:cursor-pointer"
                   onClick={() => setRound(round + 1)}
                 />
               </div>
@@ -144,46 +145,121 @@ export default function GetRound() {
               <div className="flex justify-self-start self-center w-11/12 font-orbitron text-accent/70 border-r border-accent/70">
                 Tool Select
               </div>
-              <button
-                className={`${
-                  tool == Tool.CoinFlip ? "nois-button-selected" : "nois-button"
-                }`}
-                onClick={() => setTool(Tool.CoinFlip)}
+              <NoisTooltip
+                title={
+                  <>
+                    <div className="font-bold border-b border-accent">
+                      Use Nois randomness to flip a coin
+                    </div>
+                    <div className="py-1">
+                      {" "}
+                      50% chance of Heads, 50% chance of Tails
+                    </div>
+                  </>
+                }
+                placement="top"
               >
-                Coin Flip
-              </button>
-              <button
-                className={`${
-                  tool == Tool.Dice ? "nois-button-selected" : "nois-button"
-                }`}
-                onClick={() => setTool(Tool.Dice)}
+                <button
+                  className={`${
+                    tool == Tool.CoinFlip
+                      ? "nois-button-selected"
+                      : "nois-button"
+                  }`}
+                  onClick={() => setTool(Tool.CoinFlip)}
+                >
+                  Coin Flip
+                </button>
+              </NoisTooltip>
+              <NoisTooltip
+                title={
+                  <>
+                    <div className="font-bold border-b border-accent">
+                      Use Nois randomness to roll a 6 sided Die
+                    </div>
+                    <div className="py-1">Even chances for all 6 sides</div>
+                  </>
+                }
+                placement="top"
               >
-                Dice
-              </button>
-              <button
-                className={`${
-                  tool == Tool.IntRange ? "nois-button-selected" : "nois-button"
-                }`}
-                onClick={() => setTool(Tool.IntRange)}
+                <button
+                  className={`${
+                    tool == Tool.Dice ? "nois-button-selected" : "nois-button"
+                  }`}
+                  onClick={() => setTool(Tool.Dice)}
+                >
+                  Dice
+                </button>
+              </NoisTooltip>
+              <NoisTooltip
+                title={
+                  <>
+                    <div className="font-bold border-b border-accent">
+                      Generate a random integer within a range
+                    </div>
+                    <div className="py-1">Negative integers supported</div>
+                    <div>{`Bounds of range included (1 - 10 can be 1 or 10)`}</div>
+                  </>
+                }
+                placement="top"
               >
-                Int Range
-              </button>
-              <button
-                className={`${
-                  tool == Tool.Shuffle ? "nois-button-selected" : "nois-button"
-                }`}
-                onClick={() => setTool(Tool.Shuffle)}
+                <button
+                  className={`${
+                    tool == Tool.IntRange
+                      ? "nois-button-selected"
+                      : "nois-button"
+                  }`}
+                  onClick={() => setTool(Tool.IntRange)}
+                >
+                  Int Range
+                </button>
+              </NoisTooltip>
+              <NoisTooltip
+                title={
+                  <>
+                    <div className="font-bold border-b border-accent">
+                      Randomly shuffle a list of items
+                    </div>
+                    <div className="py-1">
+                      Supports Copy/Paste from CSV for large datasets
+                    </div>
+                  </>
+                }
+                placement="top"
               >
-                Shuffle
-              </button>
-              <button
-                className={`${
-                  tool == Tool.Decimal ? "nois-button-selected" : "nois-button"
-                }`}
-                onClick={() => setTool(Tool.Decimal)}
+                <button
+                  className={`${
+                    tool == Tool.Shuffle
+                      ? "nois-button-selected"
+                      : "nois-button"
+                  }`}
+                  onClick={() => setTool(Tool.Shuffle)}
+                >
+                  Shuffle
+                </button>
+              </NoisTooltip>
+              <NoisTooltip
+                title={
+                  <>
+                    <div className="font-bold border-b border-accent">
+                      Generate a random decimal
+                    </div>
+                    <div className="py-1">{`0 <= D < 1`}</div>
+                    <div>Supports up to the 18th decimal point</div>
+                  </>
+                }
+                placement="top"
               >
-                Decimal
-              </button>
+                <button
+                  className={`${
+                    tool == Tool.Decimal
+                      ? "nois-button-selected"
+                      : "nois-button"
+                  }`}
+                  onClick={() => setTool(Tool.Decimal)}
+                >
+                  Decimal
+                </button>
+              </NoisTooltip>
               {/* <button className={`nois-button-disabled`}>Sub-rand</button> */}
             </div>
             <div className="row-span-5 mx-auto">
