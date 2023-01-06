@@ -1,8 +1,9 @@
 # nois-randomness-simulator
 
-[nois.js](https://www.npmjs.com/package/nois) - Nois NPM package
+Simulates results for randomness using
 
-[noisrs](https://github.com/noislabs/nois) - Nois standard library
+- [nois](https://github.com/noislabs/nois) - Nois standard library + toolbox
+- [nois](https://www.npmjs.com/package/nois) - Nois NPM package wcontaining a Wasm build of the standard library 
 
 ---
 
