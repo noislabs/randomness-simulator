@@ -3,7 +3,7 @@
 Simulates results for randomness using
 
 - [nois](https://github.com/noislabs/nois) - Nois standard library + toolbox
-- [nois](https://www.npmjs.com/package/nois) - Nois NPM package wcontaining a Wasm build of the standard library 
+- [nois](https://www.npmjs.com/package/nois) - Nois NPM package containing a Wasm build of the standard library 
 
 ---
 
