@@ -7,9 +7,6 @@ import { RandomnessGrid } from "../components/randomnessGrid";
 import Loader from "../components/Loader";
 import { Disclaimer } from "../components/Modals/Disclaimer";
 
-const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
-const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
-
 export const getStaticProps: GetStaticProps<{ firstBeacons: string }> = async (
   context
 ) => {
