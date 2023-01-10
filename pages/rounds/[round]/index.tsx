@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryBeaconHandle, VerifiedBeacon } from "../../../hooks/noisBeacon";
+import { queryBeaconHandle, queryBeaconsHandle, VerifiedBeacon } from "../../../hooks/noisBeacon";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loader from "../../../components/Loader";
@@ -42,6 +42,20 @@ export default function GetRound() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
+  const {
+    // isLoading,
+    // isError,
+    // error,
+    data: latestRound,
+    // isFetching,
+    // isPreviousData,
+  } = useQuery(["latest_round"], () => queryBeaconsHandle(), {
+    staleTime: 0,
+    refetchOnMount: true,
+    refetchInterval: 30000,
+    select: (beacons) => beacons[0].round
+  });
+
   const { status } = useQuery(
     ["getRound", round],
     () => queryBeaconHandle(round),
@@ -49,7 +63,7 @@ export default function GetRound() {
       staleTime: 0,
       refetchOnMount: false,
       refetchOnReconnect: "always",
-      enabled: !!round,
+      enabled: !!(round && latestRound),
       onSuccess: (data) => {
         router.push({
           pathname: "/rounds/[round]",
@@ -58,17 +72,12 @@ export default function GetRound() {
         setVerifiedRound(data);
       },
       onError: () => {
-        setRound(round - 1);
-        toast.error("Round was not found");
+        setRound(latestRound!);
+        toast.error("Round unavailable | Navigating to current latest round");
       },
       retry: false,
     }
   );
-
-  // pathname: /rounds/[round]
-  // asPath: /rounds/2548595
-  // query: Object: 2548595
-  // query: {"round":"2548595"}
 
   return (
     <>
@@ -260,7 +269,6 @@ export default function GetRound() {
                   Decimal
                 </button>
               </NoisTooltip>
-              {/* <button className={`nois-button-disabled`}>Sub-rand</button> */}
             </div>
             <div className="row-span-5 mx-auto">
               {tool === Tool.CoinFlip && verifiedRound && (

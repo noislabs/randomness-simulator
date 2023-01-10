@@ -8,10 +8,6 @@ import {
 import init from "nois";
 import { InitOutput } from "nois";
 
-// const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
-// const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
-// const noisOracleAddress = "nois1s9ly26evj8ehurptws5d6dm4a9g2z0htcqvlvn95kc30eucl4s5sd8hkgp";
-
 export interface IDashboardContext {
   tab: string;
   switchTab: (val: string) => void;

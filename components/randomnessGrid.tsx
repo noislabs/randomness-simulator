@@ -155,11 +155,6 @@ export const RandomnessGrid = ({
                       </div>
                     </div>
                   </div>
-                  {/* <div className="row-span-1">
-                <a className="text-sm">
-                  {`Verified at | ` + ran.verified.toLocaleDateString() + ' ' + ran.verified.toLocaleTimeString()}
-                </a>
-              </div> */}
                   <div className="row-span-1">
                     <div className="flex text-sm text-white/50">
                       <div className=" text-white drop-shadow-redsoft">

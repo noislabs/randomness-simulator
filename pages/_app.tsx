@@ -3,15 +3,12 @@ import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import { Toaster } from "react-hot-toast";
 import {
-  Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { useState } from "react";
 import { DashboardContext } from "../contexts/dashboard";
 import { Orbitron } from "@next/font/google";
-
-//const orbitron = Orbitron({ subsets: ['latin'] });
 
 const orbitron = Orbitron({
   subsets: ["latin"],

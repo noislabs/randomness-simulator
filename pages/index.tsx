@@ -1,14 +1,11 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useRef } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { queryBeaconsHandle, VerifiedBeacon } from "../hooks/noisBeacon";
 import { useDashboardContext } from "../contexts/dashboard";
 import { RandomnessGrid } from "../components/randomnessGrid";
 import Loader from "../components/Loader";
 import { Disclaimer } from "../components/Modals/Disclaimer";
-
-const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
-const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
 
 export const getStaticProps: GetStaticProps<{ firstBeacons: string }> = async (
   context
@@ -27,8 +24,6 @@ const Home: NextPage<{ firstBeacons: string }> = ({
   firstBeacons,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { tab, firstLoad } = useDashboardContext();
-
-  //const queryClient = useQueryClient();
 
   function makeTimer() {
     let start = 31;
@@ -70,15 +65,14 @@ const Home: NextPage<{ firstBeacons: string }> = ({
   };
 
   const {
-    isLoading,
-    isError,
-    error,
+    // isLoading,
+    // isError,
+    // error,
     data: myVerifiedBeacons,
-    isFetching,
-    isPreviousData,
-    status,
+    // isFetching,
+    // isPreviousData,
+    // status,
   } = useQuery(["main"], () => queryBeaconsHandle(), {
-    //initialData: parseHack(firstBeacons),
     placeholderData: parseHack(firstBeacons),
     staleTime: 0,
     refetchOnMount: true,
