@@ -5,7 +5,7 @@ import { approxDateFromTimestamp } from "../utils/misc";
 //`config`, `beacon`, `beacons_asc`, `beacons_desc`, `bot`, `bots`, `submissions`, `job_stats`
 
 const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
-const noisOracleAddress = process.env.NEXT_PUBLIC_PROXYCONTRACT_ADDRESS;
+const noisOracleAddress = process.env.NEXT_PUBLIC_DRAND_ADDRESS;
 
 export interface VerifiedBeacon {
   readonly round: number;
