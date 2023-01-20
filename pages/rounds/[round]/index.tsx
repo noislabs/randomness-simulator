@@ -1,5 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryBeaconHandle, queryBeaconsHandle, VerifiedBeacon } from "../../../hooks/noisBeacon";
+import {
+  queryBeaconHandle,
+  queryBeaconsHandle,
+  VerifiedBeacon,
+} from "../../../hooks/noisBeacon";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loader from "../../../components/Loader";
@@ -12,6 +16,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import toast from "react-hot-toast";
 import { NoisTooltip } from "../../../styles/mui";
+import { Pick } from "../../../components/Tools/Pick";
 
 export enum Tool {
   CoinFlip,
@@ -20,6 +25,7 @@ export enum Tool {
   Decimal,
   SubRand,
   Shuffle,
+  Pick,
 }
 
 export default function GetRound() {
@@ -53,7 +59,7 @@ export default function GetRound() {
     staleTime: 0,
     refetchOnMount: true,
     refetchInterval: 30000,
-    select: (beacons) => beacons[0].round
+    select: (beacons) => beacons[0].round,
   });
 
   const { status } = useQuery(
@@ -149,11 +155,11 @@ export default function GetRound() {
             </div>
           </div>
 
-          <div className="row-span-4 grid grid-rows-6 gap-4 p-4 w-11/12 mx-auto ">
-            <div className="row-span-1 grid grid-cols-6 gap-4 justify-start">
-              <div className="flex justify-self-start self-center w-11/12 font-orbitron text-accent/70 border-r border-accent/70">
+          <div className="row-span-4 grid grid-rows-6 gap-4 p-1 w-11/12 mx-auto">
+            <div className="row-span-1 grid grid-cols-6 gap-4 justify-start w-full">
+              {/* <div className="flex justify-self-start self-center w-11/12 font-orbitron text-accent/70 border-r border-accent/70">
                 Tool Select
-              </div>
+              </div> */}
               <NoisTooltip
                 title={
                   <>
@@ -269,6 +275,25 @@ export default function GetRound() {
                   Decimal
                 </button>
               </NoisTooltip>
+              <NoisTooltip
+                title={
+                  <>
+                    <div className="font-bold">
+                      Pick N random items from a list
+                    </div>
+                  </>
+                }
+                placement="top"
+              >
+                <button
+                  className={`${
+                    tool == Tool.Pick ? "nois-button-selected" : "nois-button"
+                  } text-sm`}
+                  onClick={() => setTool(Tool.Pick)}
+                >
+                  Pick
+                </button>
+              </NoisTooltip>
             </div>
             <div className="row-span-5 mx-auto">
               {tool === Tool.CoinFlip && verifiedRound && (
@@ -285,6 +310,9 @@ export default function GetRound() {
               )}
               {tool === Tool.Decimal && verifiedRound && (
                 <Decimal randomness={verifiedRound.randomness} />
+              )}
+              {tool === Tool.Pick && verifiedRound && (
+                <Pick randomness={verifiedRound.randomness} />
               )}
             </div>
           </div>

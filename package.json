@@ -9,6 +9,11 @@
     "lint": "next lint && prettier --check .",
     "prettier:write": "prettier --write ."
   },
+  "@comment dependencies": [
+    "These are the comments for the `dependencies` section.",
+    "For the time being,",
+    "@MUI/Material needs to stay at version ^5.10.17, or else server rendering styled components breaks the build"
+  ],
   "dependencies": {
     "@cosmjs/cosmwasm-stargate": "^0.29.5",
     "@cosmjs/stargate": "^0.29.5",
