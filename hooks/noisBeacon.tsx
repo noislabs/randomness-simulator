@@ -5,7 +5,7 @@ import { approxDateFromTimestamp } from "../utils/misc";
 //`config`, `beacon`, `beacons_asc`, `beacons_desc`, `bot`, `bots`, `submissions`, `job_stats`
 
 const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT ?? "https://nois.rpc.bccnodes.com/";
-const noisOracleAddress = process.env.NEXT_PUBLIC_DRAND_ADDRESS ?? "nois1a4g7duyu45m0y2ex7s0u8kad87w6ee70v3nz45mh89mjr7zae4pqffrtcz";
+const noisDrandAddress = process.env.NEXT_PUBLIC_DRAND_ADDRESS ?? "nois1a4g7duyu45m0y2ex7s0u8kad87w6ee70v3nz45mh89mjr7zae4pqffrtcz";
 
 export interface VerifiedBeacon {
   readonly round: number;
@@ -21,7 +21,7 @@ export async function queryOracleWith(
   requestMsg: any
 ) {
   console.log("Sending query:", JSON.stringify(requestMsg));
-  return client.wasm.queryContractSmart(noisOracleAddress!, requestMsg);
+  return client.wasm.queryContractSmart(noisDrandAddress!, requestMsg);
 }
 
 export async function queryBeacon(
