@@ -5,10 +5,10 @@ import { approxDateFromTimestamp } from "../utils/misc";
 //`config`, `beacon`, `beacons_asc`, `beacons_desc`, `bot`, `bots`, `submissions`, `job_stats`
 
 const rpcEndpoint =
-  process.env.NEXT_PUBLIC_RPC_ENDPOINT ?? "https://nois.rpc.bccnodes.com/";
+  process.env.NEXT_PUBLIC_RPC_ENDPOINT ?? "https://nois-004.rpc.bccnodes.com/";
 const noisDrandAddress =
   process.env.NEXT_PUBLIC_DRAND_ADDRESS ??
-  "nois1a4g7duyu45m0y2ex7s0u8kad87w6ee70v3nz45mh89mjr7zae4pqffrtcz";
+  "nois16peq3sftghumkja7nu32ztjy0ew4vsnshxfhcv6sxq573ta08gwsgldepm";
 
 export interface VerifiedBeacon {
   readonly round: number;
