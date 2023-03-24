@@ -59,7 +59,7 @@ export default function GetRound() {
     staleTime: 0,
     refetchOnMount: true,
     refetchInterval: 15000,
-    select: (beacons) => beacons.find((vr) => vr.round % 10 === 0)?.round
+    select: (beacons) => beacons.find((vr) => vr.round % 10 === 0)?.round,
   });
 
   const { status } = useQuery(
