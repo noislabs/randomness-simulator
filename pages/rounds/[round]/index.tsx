@@ -49,17 +49,17 @@ export default function GetRound() {
   }, [router.isReady]);
 
   const {
+    data: latestRound,
     // isLoading,
     // isError,
     // error,
-    data: latestRound,
     // isFetching,
     // isPreviousData,
   } = useQuery(["latest_round"], () => queryBeaconsHandle(), {
     staleTime: 0,
     refetchOnMount: true,
-    refetchInterval: 30000,
-    select: (beacons) => beacons[0].round,
+    refetchInterval: 15000,
+    select: (beacons) => beacons.find((vr) => vr.round % 10 === 0)?.round
   });
 
   const { status } = useQuery(
@@ -109,13 +109,13 @@ export default function GetRound() {
                   sx={{ color: "#dd6e78" }}
                   fontSize="medium"
                   className="hover:drop-shadow-red hover:cursor-pointer"
-                  onClick={() => setRound(round - 1)}
+                  onClick={() => setRound(round - 10)}
                 />
                 <ArrowForwardIcon
                   sx={{ color: "#dd6e78" }}
                   fontSize="medium"
                   className="hover:drop-shadow-red hover:cursor-pointer"
-                  onClick={() => setRound(round + 1)}
+                  onClick={() => setRound(round + 10)}
                 />
               </div>
             </div>
