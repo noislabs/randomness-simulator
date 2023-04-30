@@ -9,8 +9,6 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        //"orbitron": ['"Orbitron"', 'cursive'],
-        //mono: ['var(--font-orbitron)', ...fontFamily.mono],
         "orbitron": ['var(--font-orbitron)', 'cursive'],
       },
       animation: {

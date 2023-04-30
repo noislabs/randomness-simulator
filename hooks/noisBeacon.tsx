@@ -2,13 +2,16 @@ import { WasmExtension, setupWasmExtension } from "@cosmjs/cosmwasm-stargate";
 import { QueryClient } from "@cosmjs/stargate";
 import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { approxDateFromTimestamp } from "../utils/misc";
-//`config`, `beacon`, `beacons_asc`, `beacons_desc`, `bot`, `bots`, `submissions`, `job_stats`
 
-const rpcEndpoint =
-  process.env.NEXT_PUBLIC_RPC_ENDPOINT ?? "https://nois-004.rpc.bccnodes.com/";
+// const rpcEndpoint =
+//     process.env.NEXT_PUBLIC_RPC_ENDPOINT ?? "https://rpc.cosmos.directory/nois"
+const rpcEndpoint = "https://rpc.cosmos.directory/nois";
+
+// const noisDrandAddress =
+//     process.env.NEXT_PUBLIC_DRAND_ADDRESS ??
+//     "nois19w26q6n44xqepduudfz2xls4pc5lltpn6rxu34g0jshxu3rdujzsj7dgu8"
 const noisDrandAddress =
-  process.env.NEXT_PUBLIC_DRAND_ADDRESS ??
-  "nois16peq3sftghumkja7nu32ztjy0ew4vsnshxfhcv6sxq573ta08gwsgldepm";
+  "nois19w26q6n44xqepduudfz2xls4pc5lltpn6rxu34g0jshxu3rdujzsj7dgu8";
 
 export interface VerifiedBeacon {
   readonly round: number;
